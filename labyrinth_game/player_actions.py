@@ -69,7 +69,8 @@ def use_item(game_state, item_name):
                     print("В бронзовом сундуке пусто")
                     game_state['player_inventory'].remove("bronze_box")
                 else:
-                    print("В бронзовом сундуке: rusty_key. Предмет добавлен в инвентарь.")
+                    print("В бронзовом сундуке: rusty_key. "
+                          "Предмет добавлен в инвентарь.")
                     game_state['player_inventory'].remove("bronze_box")
                     game_state['player_inventory'].append("rusty_key")
     else:
