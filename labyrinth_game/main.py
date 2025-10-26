@@ -9,27 +9,30 @@ def process_command(state, command):
     command_elements = command.split()
     match command_elements[0]:
         case "look":
-            describe_current_room(game_state)
+            describe_current_room(state)
         case "use":
-            use_item(game_state, command_elements[1])
+            use_item(state, command_elements[1])
         case "go":
-            move_player(game_state, command_elements[1])
+            move_player(state, command_elements[1])
         case "take":
-            take_item(game_state, command_elements[1])
+            take_item(state, command_elements[1])
         case "inventory":
-            show_inventory(game_state)
+            show_inventory(state)
         case "solve":
-            solve_puzzle(game_state)
+            solve_puzzle(state)
         case "quit":
             print("Игра окончена")
-            raise KeyboardInterrupt
+            state['game_over'] = True
+        case "exit":
+            print("Игра окончена")
+            state['game_over'] = True
 
 
 def main():
     print("Добро пожаловать в Лабиринт сокровищ!")
     describe_current_room(game_state)
 
-    while True:
+    while game_state['game_over'] == False:
         process_command(game_state, get_input(prompt="> "))
 
 

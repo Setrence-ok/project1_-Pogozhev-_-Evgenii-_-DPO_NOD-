@@ -24,17 +24,20 @@ def describe_current_room(game_state):
 
 def solve_puzzle(game_state):
     room = game_state['current_room']
-    if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
-        print(rooms[room]['puzzle'][0])
-        answer = input("Ваш ответ: ")
-        if answer == rooms[room]['puzzle'][1]:
-            print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
-            rooms[room]['puzzle'] = None
-            game_state['player_inventory'].append("prize")
-        else:
-            print("Неверно. Попробуйте снова.")
+    if rooms[room] == 'treasure_room':
+        attempt_open_treasure(game_state)
     else:
-        print("Загадок здесь нет.")
+        if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
+            print(rooms[room]['puzzle'][0])
+            answer = input("Ваш ответ: ")
+            if answer == rooms[room]['puzzle'][1]:
+                print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
+                rooms[room]['puzzle'] = None
+                game_state['player_inventory'].append("prize")
+            else:
+                print("Неверно. Попробуйте снова.")
+        else:
+            print("Загадок здесь нет.")
 
 
 def attempt_open_treasure(game_state):
@@ -54,6 +57,7 @@ def attempt_open_treasure(game_state):
                 print("Вы ввели верный код и замок щёлкает. Сундук открыт!")
                 rooms[room]["items"].remove("treasure_chest")
                 print("В сундуке сокровище! Вы победили!")
+                game_state['game_over'] = True
             else:
                 print("К сожалению ответ не верный!")
         else:
