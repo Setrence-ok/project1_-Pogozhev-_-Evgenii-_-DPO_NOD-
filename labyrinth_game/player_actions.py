@@ -1,6 +1,7 @@
 # labyrinth_game/player_actions.py
 
 from .constants import rooms
+from .utils import describe_current_room
 
 
 def show_inventory(game_state):
@@ -26,6 +27,19 @@ def move_player(game_state, direction):
         if direction == direct:
             game_state['current_room'] = rooms[room]['exits'][direction]
             game_state['steps_taken'] += 1
+            describe_current_room(game_state)
+        else:
+            print("Нельзя пойти в этом направлении.")
+
+def take_item(game_state, item_name):
+    room = game_state.get('current_room')
+    item_name = item_name.lower()
+    if item_name in rooms[room]['items']:
+        game_state['player_inventory'].append(item_name)
+        rooms[room]['items'].remove(item_name)
+        print("Вы подняли: " + item_name)
+    else:
+        print("Такого предмета здесь нет.")
 
 
 
