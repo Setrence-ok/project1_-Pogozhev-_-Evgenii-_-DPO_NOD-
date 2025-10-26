@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from .utils import describe_current_room
-from .player_actions import show_inventory
+from .player_actions import show_inventory, get_input
 
 
 def main():
@@ -15,6 +15,6 @@ def main():
     describe_current_room(game_state)
     show_inventory(game_state)
     while True:
-
+        get_input()
 
 
