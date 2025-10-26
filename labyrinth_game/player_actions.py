@@ -23,13 +23,13 @@ def get_input(prompt="> "):
 def move_player(game_state, direction):
     room = game_state.get('current_room')
     exits = rooms[room]['exits']
-    for direct in exits:
-        if direction == direct:
-            game_state['current_room'] = rooms[room]['exits'][direction]
-            game_state['steps_taken'] += 1
-            describe_current_room(game_state)
-        else:
-            print("Нельзя пойти в этом направлении.")
+    if direction in exits:
+        game_state['current_room'] = rooms[room]['exits'][direction]
+        game_state['steps_taken'] += 1
+        describe_current_room(game_state)
+    else:
+        print("Нельзя пойти в этом направлении.")
+
 
 def take_item(game_state, item_name):
     room = game_state.get('current_room')
@@ -42,4 +42,23 @@ def take_item(game_state, item_name):
         print("Такого предмета здесь нет.")
 
 
-
+def use_item(game_state, item_name):
+    items = game_state.get('player_inventory')
+    if item_name in items:
+        match item_name:
+            case "torch":
+                print("Стало намного светлее")
+                game_state['player_inventory'].remove("torch")
+            case "sword":
+                print("Вы стали намного увереннее")
+                game_state['player_inventory'].remove("sword")
+            case "bronze_box":
+                if "rusty_key" in items:
+                    print("В бронзовом сундуке пусто")
+                    game_state['player_inventory'].remove("bronze_box")
+                else:
+                    print("В бронзовом сундуке: rusty_key. Предмет добавлен в инвентарь.")
+                    game_state['player_inventory'].remove("bronze_box")
+                    game_state['player_inventory'].append("rusty_key")
+    else:
+        print("У вас нет такого предмета.")

@@ -1,6 +1,8 @@
 # labyrinth_game/constants.py
 
-rooms = {
+import copy
+
+ROOMS = {
     'entrance': {
         'description': 'Вы в темном входе в лабиринт. Стены покрыты мхом. На полу лежит старый факел.',
         'exits': {'north': 'hall', 'east': 'trap_room'},
@@ -50,3 +52,13 @@ rooms = {
         'puzzle': ('Напишите название профессии человека, который стоит за прилавком?', 'Продавец')
     }
 }
+
+GAME_STATE = {
+    'player_inventory': [],  # Инвентарь игрока
+    'current_room': 'entrance',  # Текущая комната
+    'game_over': False,  # Значения окончания игры
+    'steps_taken': 0  # Количество шагов
+}
+
+rooms = copy.deepcopy(ROOMS)
+game_state = copy.deepcopy(GAME_STATE)
