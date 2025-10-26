@@ -24,7 +24,7 @@ def describe_current_room(game_state):
 
 def solve_puzzle(game_state):
     room = game_state['current_room']
-    if rooms[room] == 'treasure_room':
+    if room == 'treasure_room':
         attempt_open_treasure(game_state)
     else:
         if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
