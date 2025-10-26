@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .utils import describe_current_room
+from .utils import describe_current_room, solve_puzzle
 from .player_actions import show_inventory, get_input, move_player, take_item, use_item
 from .constants import game_state
 
@@ -18,6 +18,8 @@ def process_command(state, command):
             take_item(game_state, command_elements[1])
         case "inventory":
             show_inventory(game_state)
+        case "solve":
+            solve_puzzle(game_state)
         case "quit":
             print("Игра окончена")
             raise KeyboardInterrupt

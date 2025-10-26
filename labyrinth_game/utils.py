@@ -20,3 +20,18 @@ def describe_current_room(game_state):
         print("Кажется, здесь есть загадка (используйте команду solve).")
     else:
         print("Загадок в комнате нет")
+
+
+def solve_puzzle(game_state):
+    room = game_state['current_room']
+    if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
+        print(rooms[room]['puzzle'][0])
+        answer = input("Ваш ответ: ")
+        if answer == rooms[room]['puzzle'][1]:
+            print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
+            rooms[room]['puzzle'] = None
+            game_state['player_inventory'].append("prize")
+        else:
+            print("Неверно. Попробуйте снова.")
+    else:
+        print("Загадок здесь нет.")
