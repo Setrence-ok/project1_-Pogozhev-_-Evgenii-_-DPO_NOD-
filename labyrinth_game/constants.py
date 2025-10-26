@@ -1,7 +1,8 @@
 # labyrinth_game/constants.py
-ROOMS = {
+
+rooms = {
     'entrance': {
-        'description': 'Вы в темном входе лабиринта. Стены покрыты мхом. На полу лежит старый факел.',
+        'description': 'Вы в темном входе в лабиринт. Стены покрыты мхом. На полу лежит старый факел.',
         'exits': {'north': 'hall', 'east': 'trap_room'},
         'items': ['torch'],
         'puzzle': None
