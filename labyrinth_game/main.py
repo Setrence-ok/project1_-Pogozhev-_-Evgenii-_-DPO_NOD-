@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .utils import describe_current_room, solve_puzzle
+from .utils import describe_current_room, solve_puzzle, show_help
 from .player_actions import show_inventory, get_input, move_player, take_item, use_item
 from .constants import game_state
 
@@ -8,6 +8,8 @@ from .constants import game_state
 def process_command(state, command):
     command_elements = command.split()
     match command_elements[0]:
+        case "help":
+            show_help()
         case "look":
             describe_current_room(state)
         case "use":
@@ -32,7 +34,7 @@ def main():
     print("Добро пожаловать в Лабиринт сокровищ!")
     describe_current_room(game_state)
 
-    while game_state['game_over'] == False:
+    while not game_state['game_over']:
         process_command(game_state, get_input(prompt="> "))
 
 
