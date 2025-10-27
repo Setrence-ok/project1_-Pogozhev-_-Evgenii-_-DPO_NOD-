@@ -26,7 +26,8 @@ def move_player(game_state, direction):
     if direction in exits:
         if "treasure_room" == rooms[room]['exits'][direction]:
             if "rusty_key" in game_state['player_inventory']:
-                print("Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ.")
+                print("Вы используете найденный ключ, чтобы открыть путь в "
+                      "комнату сокровищ.")
                 game_state['current_room'] = rooms[room]['exits'][direction]
                 game_state['steps_taken'] += 1
                 describe_current_room(game_state)

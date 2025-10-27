@@ -28,7 +28,8 @@ def solve_puzzle(game_state):
     if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
         print(rooms[room]['puzzle'][0])
         answer = input("Ваш ответ: ")
-        if answer == rooms[room]['puzzle'][1] or answer.lower() == rooms[room]['puzzle'][2]:
+        if answer == rooms[room]['puzzle'][1] \
+                or answer.lower() == rooms[room]['puzzle'][2]:
             print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
             rooms[room]['puzzle'] = None
             match game_state['current_room']:
@@ -90,8 +91,9 @@ def pseudo_random(seed, modulo):
 def trigger_trap(game_state):
     print("Ловушка активирована! Пол стал дрожать...")
     if len(game_state['player_inventory']) > 0:
-        los_item = game_state['player_inventory'].pop(pseudo_random(game_state['steps_taken'],
-                                                                    len(game_state['player_inventory'])))
+        los_item = game_state['player_inventory'].pop(
+            pseudo_random(game_state['steps_taken'],
+                          len(game_state['player_inventory'])))
         print(f"Вы потеряли: {los_item}")
     else:
         damage = pseudo_random(game_state['steps_taken'], 9)
