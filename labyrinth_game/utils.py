@@ -25,34 +25,31 @@ def describe_current_room(game_state):
 
 def solve_puzzle(game_state):
     room = game_state['current_room']
-    if room == 'treasure_room':
-        attempt_open_treasure(game_state)
-    else:
-        if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
-            print(rooms[room]['puzzle'][0])
-            answer = input("Ваш ответ: ")
-            if answer == rooms[room]['puzzle'][1] or answer.lower() == rooms[room]['puzzle'][2]:
-                print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
-                rooms[room]['puzzle'] = None
-                match game_state['current_room']:
-                    case 'hall':
-                        game_state['player_inventory'].append("shield")
-                    case 'trap_room':
-                        game_state['player_inventory'].append("trap")
-                    case 'library':
-                        game_state['player_inventory'].append("test_tube")
-                    case 'outpatient':
-                        game_state['player_inventory'].append("bandage")
-                    case 'shop':
-                        game_state['player_inventory'].append("knife")
-            else:
-                if room == 'trap_room':
-                    print("Ответ неверный!")
-                    trigger_trap(game_state)
-                else:
-                    print("Неверно. Попробуйте снова.")
+    if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
+        print(rooms[room]['puzzle'][0])
+        answer = input("Ваш ответ: ")
+        if answer == rooms[room]['puzzle'][1] or answer.lower() == rooms[room]['puzzle'][2]:
+            print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
+            rooms[room]['puzzle'] = None
+            match game_state['current_room']:
+                case 'hall':
+                    game_state['player_inventory'].append("shield")
+                case 'trap_room':
+                    game_state['player_inventory'].append("trap")
+                case 'library':
+                    game_state['player_inventory'].append("test_tube")
+                case 'outpatient':
+                    game_state['player_inventory'].append("bandage")
+                case 'shop':
+                    game_state['player_inventory'].append("knife")
         else:
-            print("Загадок здесь нет.")
+            if room == 'trap_room':
+                print("Ответ неверный!")
+                trigger_trap(game_state)
+            else:
+                print("Неверно. Попробуйте снова.")
+    else:
+        print("Загадок здесь нет.")
 
 
 def attempt_open_treasure(game_state):
@@ -127,14 +124,7 @@ def random_event(game_state):
                         trigger_trap(game_state)
 
 
-
-def show_help():
+def show_help(commands):
     print("\nДоступные команды:")
-    print("  go <direction>  - перейти в направлении (north/south/east/west)")
-    print("  look            - осмотреть текущую комнату")
-    print("  take <item>     - поднять предмет")
-    print("  use <item>      - использовать предмет из инвентаря")
-    print("  inventory       - показать инвентарь")
-    print("  solve           - попытаться решить загадку в комнате")
-    print("  quit            - выйти из игры")
-    print("  help            - показать это сообщение")
+    for command, description in commands.items():
+        print(f"{command:<16} - {description}")
