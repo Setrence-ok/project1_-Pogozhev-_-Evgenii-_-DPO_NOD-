@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from .utils import describe_current_room, solve_puzzle, show_help, attempt_open_treasure
-from .player_actions import show_inventory, get_input, move_player, take_item, use_item
-from .constants import game_state, commands
+from .constants import commands, game_state
+from .player_actions import get_input, move_player, show_inventory, take_item, use_item
+from .utils import attempt_open_treasure, describe_current_room, show_help, solve_puzzle
 
 
 def process_command(state, command):
