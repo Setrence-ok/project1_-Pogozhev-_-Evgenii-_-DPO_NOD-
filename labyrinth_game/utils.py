@@ -1,4 +1,5 @@
 # labyrinth_game/utils.py
+import math
 
 from .constants import rooms
 
@@ -63,6 +64,36 @@ def attempt_open_treasure(game_state):
                 print("К сожалению ответ не верный!")
         else:
             print("Вы отступаете от сундука.")
+
+
+def pseudo_random(seed, modulo):
+    one = 12.9898
+    two = 43758.5453
+    value = math.sin(seed * one)
+    value = value * two
+    value = value - math.floor(value)
+    value = value * modulo
+    return int(value)
+
+
+def trigger_trap(game_state):
+    print("Ловушка активирована! Пол стал дрожать...")
+    if len(game_state['player_inventory']) > 0:
+        los_item = game_state['player_inventory'].pop(pseudo_random(game_state['steps_taken'],
+                                                                    len(game_state['player_inventory'])))
+        print(f"Вы потеряли: {los_item}")
+    else:
+        damage = pseudo_random(game_state['steps_taken'], 9)
+        if damage > 5:
+            print("Вы получили избыточный урон!")
+            game_state['game_over'] = True
+        else:
+            print("Поздравляю! Вы уцелели")
+
+
+
+
+
 
 
 def show_help():
