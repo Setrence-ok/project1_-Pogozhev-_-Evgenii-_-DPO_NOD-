@@ -31,7 +31,7 @@ def solve_puzzle(game_state):
         if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
             print(rooms[room]['puzzle'][0])
             answer = input("Ваш ответ: ")
-            if answer == rooms[room]['puzzle'][1] or rooms[room]['puzzle'][2].lower():
+            if answer == rooms[room]['puzzle'][1] or answer.lower() == rooms[room]['puzzle'][2]:
                 print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
                 rooms[room]['puzzle'] = None
                 match game_state['current_room']:
