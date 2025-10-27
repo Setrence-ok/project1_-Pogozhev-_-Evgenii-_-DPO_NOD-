@@ -31,12 +31,26 @@ def solve_puzzle(game_state):
         if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
             print(rooms[room]['puzzle'][0])
             answer = input("Ваш ответ: ")
-            if answer == rooms[room]['puzzle'][1]:
+            if answer == rooms[room]['puzzle'][1] or rooms[room]['puzzle'][2].lower():
                 print("Поздравляю! Ответ верный! Награда добавлена в инвентарь.")
                 rooms[room]['puzzle'] = None
-                game_state['player_inventory'].append("prize")
+                match game_state['current_room']:
+                    case 'hall':
+                        game_state['player_inventory'].append("shield")
+                    case 'trap_room':
+                        game_state['player_inventory'].append("trap")
+                    case 'library':
+                        game_state['player_inventory'].append("test_tube")
+                    case 'outpatient':
+                        game_state['player_inventory'].append("bandage")
+                    case 'shop':
+                        game_state['player_inventory'].append("knife")
             else:
-                print("Неверно. Попробуйте снова.")
+                if room == 'trap_room':
+                    print("Ответ неверный!")
+                    trigger_trap(game_state)
+                else:
+                    print("Неверно. Попробуйте снова.")
         else:
             print("Загадок здесь нет.")
 
