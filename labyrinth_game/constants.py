@@ -84,6 +84,10 @@ COMMANDS = {"go <direction>": "перейти в направлении (north/s
             "quit": "выйти из игры",
             "help": "показать это сообщение"}
 
+RANDOME = 11
+DAMAGE = 10
+SCENE = 3
+
 rooms = copy.deepcopy(ROOMS)
 game_state = copy.deepcopy(GAME_STATE)
 commands = copy.deepcopy(COMMANDS)

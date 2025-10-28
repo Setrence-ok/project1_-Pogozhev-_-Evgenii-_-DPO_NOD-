@@ -5,6 +5,9 @@ from .utils import describe_current_room, random_event
 
 
 def show_inventory(game_state):
+    """
+      Выводит в терминал предметы, которые находятся в инвентаре
+      """
     if len(game_state['player_inventory']) == 0:
         print("Инвентарь пуст")
     else:
@@ -12,6 +15,9 @@ def show_inventory(game_state):
 
 
 def get_input(prompt="> "):
+    """
+      Функция ввода команды
+      """
     try:
         user_input = input(prompt)  # Запрашиваем ввод от пользователя
         return user_input  # Возвращаем введённое значение
@@ -21,6 +27,9 @@ def get_input(prompt="> "):
 
 
 def move_player(game_state, direction):
+    """
+      Передвижение игрока по комнатам
+      """
     room = game_state.get('current_room')
     exits = rooms[room]['exits']
     if direction in exits:
@@ -45,6 +54,9 @@ def move_player(game_state, direction):
 
 
 def take_item(game_state, item_name):
+    """
+      Взять предмет, который лежит в комнате и положить в инвентарь
+      """
     room = game_state.get('current_room')
     item_name = item_name.lower()
     if item_name == 'treasure_chest':
@@ -59,6 +71,9 @@ def take_item(game_state, item_name):
 
 
 def use_item(game_state, item_name):
+    """
+      Использовать предмет из инвентаря
+      """
     items = game_state.get('player_inventory')
     room = game_state.get('current_room')
     if item_name in items:

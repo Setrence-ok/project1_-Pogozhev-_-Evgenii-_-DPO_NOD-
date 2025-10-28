@@ -1,7 +1,7 @@
 [project]
 name = "projecct1-pogozhev-evgenii-dpo-nod"
 version = "0.1.0"
-description = ""
+description = "My first game"
 authors = [
     {name = "Setrence, Setrence1@yandex.ru"}
 ]
