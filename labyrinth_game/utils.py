@@ -67,7 +67,7 @@ def attempt_open_treasure(game_state):
             print("Дверь защищена кодом. Введите код "
                   "(подсказка: это число пятикратного шага, 2*5= ? )")
             puzzle_answer = input("Введите ваш ответ: ")
-            if puzzle_answer == rooms[room]['puzzle'][1]:
+            if puzzle_answer == rooms[room]['puzzle'][1] or puzzle_answer.lower() == rooms[room]['puzzle'][2]:
                 print("Вы ввели верный код и замок щёлкает. Сундук открыт!")
                 rooms[room]["items"].remove("treasure_chest")
                 print("В сундуке сокровище! Вы победили!")
