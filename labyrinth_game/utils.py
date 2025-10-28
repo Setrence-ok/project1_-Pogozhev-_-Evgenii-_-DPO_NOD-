@@ -1,10 +1,14 @@
 # labyrinth_game/utils.py
 import math
 
-from .constants import rooms
+from .constants import rooms, RANDOME, DAMAGE, SCENE
 
 
 def describe_current_room(game_state):
+    """
+    Функция принимает текущее состояние игрока и
+    выводит всю информацию о комнате в которой находится игрок
+    """
     room_exit = []
     room = game_state.get('current_room')
     print(f"== {room.upper()} ==")
@@ -24,6 +28,10 @@ def describe_current_room(game_state):
 
 
 def solve_puzzle(game_state):
+    """
+      Функция принимает текущее состояние игрока и задает ему загадку.
+      Загадка зависит от комнаты, где находится игрок.
+      """
     room = game_state['current_room']
     if rooms[room]['puzzle'] is not None and len(rooms[room]['puzzle']) > 1:
         print(rooms[room]['puzzle'][0])
@@ -54,6 +62,10 @@ def solve_puzzle(game_state):
 
 
 def attempt_open_treasure(game_state):
+    """
+      Функция принимает текущее состояние игрока и
+      реализует выполнение условий для победы в игре
+      """
     room = game_state['current_room']
     if "treasure_key" in game_state['player_inventory']:
         print("Вы применяете ключ и замок щёлкает. Сундук открыт!")
@@ -67,7 +79,8 @@ def attempt_open_treasure(game_state):
             print("Дверь защищена кодом. Введите код "
                   "(подсказка: это число пятикратного шага, 2*5= ? )")
             puzzle_answer = input("Введите ваш ответ: ")
-            if puzzle_answer == rooms[room]['puzzle'][1] or puzzle_answer.lower() == rooms[room]['puzzle'][2]:
+            if puzzle_answer == rooms[room]['puzzle'][1] or \
+                    puzzle_answer.lower() == rooms[room]['puzzle'][2]:
                 print("Вы ввели верный код и замок щёлкает. Сундук открыт!")
                 rooms[room]["items"].remove("treasure_chest")
                 print("В сундуке сокровище! Вы победили!")
@@ -79,6 +92,9 @@ def attempt_open_treasure(game_state):
 
 
 def pseudo_random(seed, modulo):
+    """
+      Контролируемый рандомайзер
+      """
     one = 12.9898
     two = 43758.5453
     value = math.sin(seed * one)
@@ -89,6 +105,9 @@ def pseudo_random(seed, modulo):
 
 
 def trigger_trap(game_state):
+    """
+      Рандомные ловушки
+      """
     print("Ловушка активирована! Пол стал дрожать...")
     if len(game_state['player_inventory']) > 0:
         los_item = game_state['player_inventory'].pop(
@@ -96,7 +115,7 @@ def trigger_trap(game_state):
                           len(game_state['player_inventory'])))
         print(f"Вы потеряли: {los_item}")
     else:
-        damage = pseudo_random(game_state['steps_taken'], 9)
+        damage = pseudo_random(game_state['steps_taken'], DAMAGE)
         if damage > 5:
             print("Вы получили избыточный урон!")
             game_state['game_over'] = True
@@ -105,10 +124,13 @@ def trigger_trap(game_state):
 
 
 def random_event(game_state):
+    """
+      Рандомные события
+      """
     room = game_state['current_room']
-    event = pseudo_random(game_state['steps_taken'], 11)
+    event = pseudo_random(game_state['steps_taken'], RANDOME)
     if 0 <= event < 3:
-        script = pseudo_random(game_state['steps_taken'], 3)
+        script = pseudo_random(game_state['steps_taken'], SCENE)
         match script:
             case 0:
                 print("Вы нашли в комнате предмет: 'coin'")
@@ -127,6 +149,9 @@ def random_event(game_state):
 
 
 def show_help(commands):
+    """
+      Помощь
+      """
     print("\nДоступные команды:")
     for command, description in commands.items():
         print(f"{command:<16} - {description}")

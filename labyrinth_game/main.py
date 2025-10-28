@@ -6,6 +6,10 @@ from .utils import attempt_open_treasure, describe_current_room, show_help, solv
 
 
 def process_command(state, command):
+    """
+      Поцедурная функция, преализующая вызов остальных функций в
+      зависимости от команды игрока
+      """
     command_elements = command.split()
     room = state['current_room']
     direction = ['west', 'south', 'east', 'north']
