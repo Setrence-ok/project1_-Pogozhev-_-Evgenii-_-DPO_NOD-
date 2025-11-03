@@ -1,7 +1,7 @@
 # labyrinth_game/utils.py
 import math
 
-from .constants import rooms, RANDOME, DAMAGE, SCENE
+from .constants import DAMAGE, RANDOME, SCENE, rooms
 
 
 def describe_current_room(game_state):
